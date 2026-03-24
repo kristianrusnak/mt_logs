@@ -1,0 +1,347 @@
+
+==================================================================
+  LOG ANOMALY REASONING — ROUGE RESULTS
+==================================================================
+
+  OVERVIEW  (30 samples — averages)
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2292     0.3475     0.2728
+  ROUGE-2        0.0470     0.0674     0.0544
+  ROUGE-L        0.2023     0.3072     0.2410
+  ──────────────────────────────────────────────────────────────────
+
+  PER-SAMPLE DETAIL
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #1
+  REF : The log sequence is abnormal because it shows mult…
+  HYP : Abnormal. The log contains kernel-level memory err…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2308     0.2951     0.2590
+  ROUGE-2        0.0357     0.0411     0.0382
+  ROUGE-L        0.1923     0.2459     0.2158
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #2
+  REF : The log sequence is abnormal because it contains m…
+  HYP : The log shows repeated temperature warnings (Event…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2308     0.2368     0.2338
+  ROUGE-2        0.0449     0.0430     0.0440
+  ROUGE-L        0.1667     0.1711     0.1688
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #3
+  REF : The log sequence is normal because it starts with …
+  HYP : The log shows a transient temperature warning (Eve…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.3099     0.3929     0.3465
+  ROUGE-2        0.0602     0.0595     0.0599
+  ROUGE-L        0.2676     0.3393     0.2992
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #4
+  REF : The log sequence is abnormal because it repeatedly…
+  HYP : The log shows repeated mad_process failures with r…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.3016     0.3958     0.3423
+  ROUGE-2        0.1176     0.1250     0.1212
+  ROUGE-L        0.2857     0.3750     0.3243
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #5
+  REF : This log sequence is abnormal because it contains …
+  HYP : Initial entries show a normal temperature sensor r…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.3125     0.3846     0.3448
+  ROUGE-2        0.1461     0.1688     0.1566
+  ROUGE-L        0.3000     0.3692     0.3310
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #6
+  REF : The log sequence is normal because it reflects a c…
+  HYP : The log shows numerous repeated SSH login ceremoni…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2909     0.3636     0.3232
+  ROUGE-2        0.0938     0.1224     0.1062
+  ROUGE-L        0.2909     0.3636     0.3232
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #7
+  REF : The log sequence is normal because it represents t…
+  HYP : The log shows a repeating pattern: a session is op…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2319     0.4706     0.3107
+  ROUGE-2        0.0112     0.0286     0.0161
+  ROUGE-L        0.1884     0.3824     0.2524
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #8
+  REF : The log sequence is abnormal due to repeated fatal…
+  HYP : Multiple critical faults observed: kernel taint fr…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2899     0.3448     0.3150
+  ROUGE-2        0.0380     0.0484     0.0426
+  ROUGE-L        0.2174     0.2586     0.2362
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #9
+  REF : The log sequence is abnormal due to multiple fatal…
+  HYP : The log shows a device in FATAL state with repeate…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2065     0.3519     0.2603
+  ROUGE-2        0.0094     0.0175     0.0123
+  ROUGE-L        0.1739     0.2963     0.2192
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #10
+  REF : The log sequence reflects a typical ACPI initializ…
+  HYP : The sequence describes standard ACPI interrupt rou…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1889     0.3778     0.2519
+  ROUGE-2        0.0000     0.0000     0.0000
+  ROUGE-L        0.1889     0.3778     0.2519
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #11
+  REF : The log sequence shows critical system issues invo…
+  HYP : The log shows multiple critical errors in the Infi…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2400     0.4068     0.3019
+  ROUGE-2        0.0167     0.0312     0.0217
+  ROUGE-L        0.2300     0.3898     0.2893
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #12
+  REF : This log sequence is abnormal because it contains …
+  HYP : The log shows multiple critical failures and non-s…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2243     0.4444     0.2981
+  ROUGE-2        0.0894     0.1746     0.1183
+  ROUGE-L        0.1963     0.3889     0.2609
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #13
+  REF : The log sequence is abnormal due to repeated FATAL…
+  HYP : The log shows a sequence of critical failures: amb…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2027     0.4054     0.2703
+  ROUGE-2        0.0241     0.0541     0.0333
+  ROUGE-L        0.1757     0.3514     0.2342
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #14
+  REF : The log sequence is normal because it represents a…
+  HYP : The log shows standard boot-time hardware initiali…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1579     0.2632     0.1974
+  ROUGE-2        0.0463     0.0833     0.0595
+  ROUGE-L        0.1368     0.2281     0.1711
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #15
+  REF : This log sequence is abnormal due to memory alloca…
+  HYP : The log contains kernel-level resource failures an…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1573     0.3333     0.2137
+  ROUGE-2        0.0388     0.0851     0.0533
+  ROUGE-L        0.1348     0.2857     0.1832
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #16
+  REF : This log sequence is abnormal due to persistent an…
+  HYP : Abnormal behavior: the log shows cascading fatal e…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2468     0.3878     0.3016
+  ROUGE-2        0.0110     0.0189     0.0139
+  ROUGE-L        0.2208     0.3469     0.2698
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #17
+  REF : The log sequence is normal because it appears to b…
+  HYP : The log shows a standard boot sequence: fsck check…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2533     0.3220     0.2836
+  ROUGE-2        0.0119     0.0128     0.0123
+  ROUGE-L        0.2000     0.2542     0.2239
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #18
+  REF : This log sequence is abnormal due to multiple fata…
+  HYP : Abnormal sequence due to critical errors: mad_proc…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1600     0.1356     0.1468
+  ROUGE-2        0.0204     0.0156     0.0177
+  ROUGE-L        0.1200     0.1017     0.1101
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #19
+  REF : This log sequence is normal because it shows a ser…
+  HYP : The log shows a plausible admin workflow: multiple…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2208     0.3148     0.2595
+  ROUGE-2        0.0482     0.0588     0.0530
+  ROUGE-L        0.2208     0.3148     0.2595
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #20
+  REF : The log sequence is normal because it shows a seri…
+  HYP : The sequence shows standard boot/maintenance activ…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1846     0.2400     0.2087
+  ROUGE-2        0.0405     0.0484     0.0441
+  ROUGE-L        0.1692     0.2200     0.1913
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #21
+  REF : This log sequence indicates critical and persisten…
+  HYP : The log shows multiple critical failures and initi…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2571     0.3273     0.2880
+  ROUGE-2        0.0617     0.0758     0.0680
+  ROUGE-L        0.2429     0.3091     0.2720
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #22
+  REF : The log sequence is normal because it contains a s…
+  HYP : The log follows a provisioning workflow (Kickstart…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2817     0.3509     0.3125
+  ROUGE-2        0.0824     0.1029     0.0915
+  ROUGE-L        0.2676     0.3333     0.2969
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #23
+  REF : This log sequence is normal because it appears to …
+  HYP : The log shows repeated stop/restart cycles for snm…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1649     0.3721     0.2286
+  ROUGE-2        0.0090     0.0204     0.0125
+  ROUGE-L        0.1443     0.3256     0.2000
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #24
+  REF : The log sequence is abnormal due to the presence o…
+  HYP : The log starts with a Mad process failure: 'mad_pr…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1646     0.2889     0.2097
+  ROUGE-2        0.0206     0.0444     0.0282
+  ROUGE-L        0.1139     0.2000     0.1452
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #25
+  REF : This log sequence is abnormal because it indicates…
+  HYP : The log contains multiple critical failure indicat…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2083     0.2899     0.2424
+  ROUGE-2        0.0370     0.0506     0.0428
+  ROUGE-L        0.1875     0.2609     0.2182
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #26
+  REF : The log sequence is abnormal because it contains a…
+  HYP : The sequence contains explicit critical failures: …
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2143     0.2500     0.2308
+  ROUGE-2        0.0533     0.0533     0.0533
+  ROUGE-L        0.2143     0.2500     0.2308
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #27
+  REF : This log sequence is normal because it appears to …
+  HYP : The sequence shows orderly service lifecycle event…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2879     0.5278     0.3725
+  ROUGE-2        0.0897     0.1628     0.1157
+  ROUGE-L        0.2576     0.4722     0.3333
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #28
+  REF : This log sequence is normal because it shows a seq…
+  HYP : The sequence shows a standard admin session lifecy…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1918     0.2545     0.2187
+  ROUGE-2        0.0220     0.0267     0.0241
+  ROUGE-L        0.1370     0.1818     0.1562
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #29
+  REF : This log sequence is abnormal because it contains …
+  HYP : Evidence of configuration errors and repeated serv…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.2692     0.5185     0.3544
+  ROUGE-2        0.1000     0.1912     0.1313
+  ROUGE-L        0.2500     0.4815     0.3291
+
+  ──────────────────────────────────────────────────────────────────
+  Sample #30
+  REF : This log sequence is normal because it shows the s…
+  HYP : The log shows a standard kernel boot sequence with…
+  ──────────────────────────────────────────────────────────────────
+  Metric      Precision     Recall         F1
+  ──────────────────────────────────────────────────────────────────
+  ROUGE-1        0.1961     0.3774     0.2581
+  ROUGE-2        0.0312     0.0580     0.0406
+  ROUGE-L        0.1765     0.3396     0.2323
+
+  ──────────────────────────────────────────────────────────────────
