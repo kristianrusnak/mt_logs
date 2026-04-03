@@ -29,8 +29,7 @@ def calculate_split(num_of_datasets: int) -> tuple[int, int]:
     return int(two_thirds), int(one_third)
 
 def main() -> None:
-    # args = sys.argv[1:]
-    args = ["thunderbird/thunderbird.json", "thunderbird/"]
+    args = sys.argv[1:]
 
     with (open(args[0], "r", encoding="utf-8") as f):
         dataset = json.load(f)
