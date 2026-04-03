@@ -108,7 +108,7 @@ def reasoning_logs(state: AgentState) -> AgentState:
     for i in range(len(raw_input)):
         prompt: str = _create_prompt_for_reasoning(raw_input[i], analysis[i])
         answer = model_with_structured_output.invoke(prompt)
-        parsed_answer = f"{"Normal" if answer.normal else "Abnormal"} - {answer.reasoning}"
+        parsed_answer = f"{"normal" if answer.normal else "abnormal"} - {answer.reasoning}"
         state["reasoning"].append(parsed_answer)
     return state
 

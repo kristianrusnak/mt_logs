@@ -7,40 +7,40 @@
   ────────────────────────────────────────────────────
                         Pred: Normal  Pred: Anomaly
   ────────────────────────────────────────────────────
-  Actual: Normal              TN = 3         FP = 7
-  Actual: Anomaly             FN = 1        TP = 19
+  Actual: Normal             TN = 11         FP = 2
+  Actual: Anomaly             FN = 0        TP = 17
   ────────────────────────────────────────────────────
 
   METRIC CALCULATIONS
   ────────────────────────────────────────────────────
   Precision = TP / (TP + FP)
-            = 19 / (19 + 7) = 0.7308
+            = 17 / (17 + 2) = 0.8947
 
   Recall    = TP / (TP + FN)
-            = 19 / (19 + 1) = 0.9500
+            = 17 / (17 + 0) = 1.0000
 
   F1 Score  = 2 × Precision × Recall / (Precision + Recall)
-            = 2 × 0.7308 × 0.9500 / (0.7308 + 0.9500)
-            = 0.8261
+            = 2 × 0.8947 × 1.0000 / (0.8947 + 1.0000)
+            = 0.9444
 
   Accuracy  = (TP + TN) / Total
-            = (19 + 3) / 30 = 0.7333
+            = (17 + 11) / 30 = 0.9333
   ────────────────────────────────────────────────────
 
   SUMMARY
   ────────────────────────────────────────────────────
-  F1 Score               82.61%   [█████████████████░░░]
-  Recall                 95.00%   [███████████████████░]
-  Precision              73.08%   [███████████████░░░░░]
-  Accuracy               73.33%   [███████████████░░░░░]
+  F1 Score               94.44%   [███████████████████░]
+  Recall                100.00%   [████████████████████]
+  Precision              89.47%   [██████████████████░░]
+  Accuracy               93.33%   [███████████████████░]
   ────────────────────────────────────────────────────
 
   LABEL DISTRIBUTION
   ────────────────────────────────────────────────────
-  Ground Truth  →  anomaly:    20  |  normal:    10  |  total:    30
-  Predictions   →  anomaly:    26  |  normal:     4  |  total:    30
+  Ground Truth  →  anomaly:    17  |  normal:    13  |  total:    30
+  Predictions   →  anomaly:    19  |  normal:    11  |  total:    30
   ────────────────────────────────────────────────────
 
   INTERPRETATION
-  ~  Moderate F1 — room for improvement.
+  ✓  Strong F1 — good balance of precision and recall.
 

@@ -29,18 +29,15 @@ import os
 
 
 def normalize_label(value: str) -> int:
-    """Convert any label string to 1 (anomaly) or 0 (normal)."""
     v = str(value).strip().lower()
-    if v in ("1", "anomaly", "abnormal", "true", "yes", "error", "malicious"):
+    sep = v.index('-')
+    classification = v[:sep]
+    if classification == "abnormal":
         return 1
-    if v in ("0", "normal", "negative", "false", "no", "benign"):
+    elif classification == "normal":
         return 0
-    # fuzzy match
-    if "anomal" in v or "abnormal" in v:
-        return 1
-    if "normal" in v:
-        return 0
-    raise ValueError(f"Cannot parse label: '{value}'")
+    else:
+        raise ValueError(f"Cannot parse label: '{value}'")
 
 
 def load_ground_truth(json_path: str) -> list[int]:
@@ -54,10 +51,7 @@ def load_ground_truth(json_path: str) -> list[int]:
 
     labels = []
     for i, item in enumerate(data):
-        # Try several common key names used across LLM-LADE variants
-        raw = (item.get("label") or item.get("Label") or
-               item.get("anomaly_label") or item.get("output") or
-               item.get("answer") or item.get("classification"))
+        raw = item.get("output")
         if raw is None:
             raise KeyError(f"No label field found in item {i}. Keys: {list(item.keys())}")
         labels.append(normalize_label(raw))
