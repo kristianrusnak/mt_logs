@@ -15,7 +15,7 @@ LIMIT_FEW_SHOT_PROMPT = 4
 class SyntheticLog(BaseModel):
     log_seq: str = Field(description="comma-separated list of log event templates, each ending with a comma")
     label: Literal["normal", "abnormal"] = Field(description="normal or abnormal")
-    cause: str = Field(description="detailed explanation of why this sequence is normal or abnormal, referencing specific events in the sequence")
+    cause: str = Field(description="2-3 sentence explanation of why this sequence is normal or abnormal, referencing 1-2 specific events from the sequence. Be concise")
 
 def system_prompt():
     return """
@@ -32,23 +32,22 @@ def system_prompt():
         - Dynamic values are replaced with <*> as placeholders
         - Events come from a fixed vocabulary of BGL-specific message types
         - Normal sequences show consistent, expected hardware monitoring patterns
-        - Abnormal sequences show failure signals: panics, persistent errors, unrecoverable 
-          interrupts, or combinations of correctable errors that escalate
+        - Abnormal sequences show failure signals: panics, persistent errors, unrecoverable interrupts, or combinations of correctable errors that escalate
+        - Keep the cause explanation to 2-3 sentences maximum. Match the brevity of the few-shot examples. Do not enumerate every event in the sequence
         
         Output ONLY a JSON object in this exact format, nothing else:
         {
           "log_seq": "<comma-separated list of log event templates, each ending with a comma>",
           "label": "<normal or abnormal>",
-          "cause": "<detailed explanation of why this sequence is normal or abnormal, referencing 
-                     specific events in the sequence>"
+          "cause": "<2-3 sentence explanation of why this sequence is normal or abnormal, referencing 1-2 specific events from the sequence. Be concise.>"
         }
     """
 
-def generate_prompt(data: list[dict], label: Literal["normal", "abnormal"]):
+def generate_prompt(data: list[dict], classification: Literal["normal", "abnormal"]):
     prompt = f"""
-        Generate a NEW synthetic BGL log sequence that is labeled {label.upper()}.
+        Generate a NEW synthetic BGL log sequence that is labeled {classification.upper()}.
         
-        Here are real examples of abnormal BGL sequences to learn the style and vocabulary from:
+        Here are real examples of {classification.upper()} BGL sequences to learn the style and vocabulary from:
     """
 
     for i, record in enumerate(data):
@@ -56,7 +55,7 @@ def generate_prompt(data: list[dict], label: Literal["normal", "abnormal"]):
         record_output = record.get("output")
         label, cause = extract_output(record_output)
         prompt += f"""\n\n
-            --- EXAMPLE {i} ---
+            --- EXAMPLE {i+1} ---
             log_seq: "{record_input}",
             label: "{label}",
             cause: "{cause}"
@@ -78,6 +77,9 @@ def generate_prompt(data: list[dict], label: Literal["normal", "abnormal"]):
         6. Do NOT generate a sequence where all errors are corrected and the system recovers — 
            that would be normal
     """
+
+    print(f"\n\nPrompt:\n{prompt}\n\n")
+    return prompt
 
 def extract_output(output: str) -> tuple[str, str]:
     sep = output.index("-")
@@ -103,6 +105,16 @@ def append_to_output_file(
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+
+def classified_data(data: list[dict], label: str) -> list[dict]:
+    result = []
+    for record in data:
+        record_output = record.get("output")
+        classification, _ = extract_output(record_output)
+        if classification.lower().strip() == label.lower().strip():
+            result.append(record)
+    return result
+
 def main() -> None:
     args = sys.argv[1:]
 
@@ -116,7 +128,7 @@ def main() -> None:
     else:
         raise InputError("Wrong Input")
 
-    if label in ("abnormal", "normal"):
+    if label not in ("abnormal", "normal"):
         raise InputError("Invalid classification label")
 
     with open(input_file, "r", encoding="utf-8") as f:
@@ -128,12 +140,14 @@ def main() -> None:
     #TODO choose system prompt dynamically
     system_message = SystemMessage(system_prompt())
 
+    data = classified_data(data, label)
+
     rnd = Random(RANDOM_SEED)
     rnd.shuffle(data)
 
     user_prompt = HumanMessage(generate_prompt(
         data=data[:LIMIT_FEW_SHOT_PROMPT],
-        label=label
+        classification=label
     ))
 
     answer = model_with_structure.invoke([system_message, user_prompt])
@@ -143,3 +157,6 @@ def main() -> None:
         cause=answer.cause,
         output_file=output_file
     )
+
+if __name__ == "__main__":
+    main()
