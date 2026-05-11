@@ -14,7 +14,6 @@ from langgraph.graph import END, START, StateGraph
 #     Env variables
 # ─────────────────────────────────────────────
 
-JSON_FILE = os.getenv("JSON_FILE")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # ─────────────────────────────────────────────
@@ -27,10 +26,10 @@ class ReasoningInfo(BaseModel):
     reasoning: str = Field(description="Reason for classification")
 
 class AgentState(TypedDict):
-    raw_input: list[str]
-    raw_output: list[str]
-    analysis: list[str]
-    reasoning: list[str]
+    raw_input: str
+    raw_output: str
+    analysis: str
+    reasoning: str
 
 # ─────────────────────────────────────────────
 #     1. Node: analyse log sequence
@@ -56,10 +55,10 @@ def _create_prompt_for_analysis(log_sequence: str) -> str:
     """).strip()
 
 def analyze_logs(state: AgentState) -> AgentState:
-    for loo_sequence in state.get("raw_input"):
-        prompt: str = _create_prompt_for_analysis(loo_sequence)
-        answer = model1.invoke(prompt)
-        state["analysis"].append(answer.content)
+    log_sequence = state.get("raw_input")
+    prompt: str = _create_prompt_for_analysis(log_sequence)
+    answer = model1.invoke(prompt)
+    state["analysis"] = answer.content
     return state
 
 # ─────────────────────────────────────────────
@@ -98,17 +97,13 @@ def _create_prompt_for_reasoning(log_sequence: str, analysis: str) -> str:
     """).strip()
 
 def reasoning_logs(state: AgentState) -> AgentState:
-    if len(state.get("raw_input")) != len(state.get("analysis")):
-        raise RuntimeError("Node 2: len(raw_input) != len(analysis). Something went wrong!")
-
     raw_input = state.get("raw_input")
     analysis = state.get("analysis")
 
-    for i in range(len(raw_input)):
-        prompt: str = _create_prompt_for_reasoning(raw_input[i], analysis[i])
-        answer = model_with_structured_output.invoke(prompt)
-        parsed_answer = f"{"normal" if answer.normal else "abnormal"} - {answer.reasoning}"
-        state["reasoning"].append(parsed_answer)
+    prompt: str = _create_prompt_for_reasoning(raw_input, analysis)
+    answer = model_with_structured_output.invoke(prompt)
+    parsed_answer = f"{'normal' if answer.normal else 'abnormal'}-{answer.reasoning}"
+    state["reasoning"] = parsed_answer
     return state
 
 # ─────────────────────────────────────────────
@@ -152,41 +147,46 @@ def main() -> None:
         raise FileNotFoundError(f"Input dataset file not found: {dataset_filename}")
 
     output_pathname = Path(args.output_pathname)
+    if output_pathname.is_dir():
+        output_file = output_pathname / "results.json"
+    else:
+        output_file = output_pathname  # already a file path, use as-is
 
     # ── Load dataset file ──
     with open(dataset_filename, encoding="utf-8") as f:
         dataset: list[dict] = json.load(f)
-
-    dataset_length = len(dataset)
 
     print(f"Loaded {len(dataset)} entries from {dataset_filename}")
 
     # ── Build and run the graph ──
     app = build_graph()
 
-    initial_state: AgentState = {
-        "raw_input": [entery.get("input") for entery in dataset],
-        "raw_output": [entery.get("output") for entery in dataset],
-        "analysis": [],
-        "reasoning": []
-    }
+    output = []
 
-    final_state = app.invoke(initial_state)
+    for i, entry in enumerate(dataset):
+        initial_state: AgentState = {
+            "raw_input": entry.get("input"),
+            "raw_output": entry.get("output"),
+            "analysis": "",
+            "reasoning": ""
+        }
 
-    # ── Write result to output file ──
-    with open(output_pathname, "w", encoding="utf-8") as f:
-        # Exclude raw_entries from output to keep it tidy
-        output = []
-        for i in range(dataset_length):
-            output.append({
-                "input": final_state["raw_input"][i],
-                "output": final_state["raw_output"][i],
-                "analysis": final_state["analysis"][i],
-                "reasoning": final_state["reasoning"][i]
-            })
-        json.dump(output, f, indent=2, ensure_ascii=False)
+        final_state = app.invoke(initial_state)
 
-    print(f"\nResults saved to results.json")
+        output.append({
+            "input": final_state["raw_input"],
+            "output": final_state["raw_output"],
+            "analysis": final_state["analysis"],
+            "reasoning": final_state["reasoning"]
+        })
+
+        # Save to file after each iteration
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2, ensure_ascii=False)
+
+        print(f"Progress: {i + 1}/{len(dataset)} — saved to {output_file}")
+
+    print(f"\nResults saved to {output_file}")
 
 if __name__ == "__main__":
     main()
