@@ -3,13 +3,12 @@ from __future__ import annotations
 from pydantic import BaseModel, Field
 from pathlib import Path
 from typing import TypedDict
+import argparse
 import json
-import sys
 import os
 
 from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
-from verdict_log import verdict_logs
 
 # ─────────────────────────────────────────────
 #     Env variables
@@ -129,38 +128,53 @@ def build_graph() -> StateGraph:
     return graph.compile()
 
 def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Agentic AI pipeline for log analysis and reasoning."
+    )
+    parser.add_argument(
+        "--dataset_pathname",
+        default="",
+        help="Path to the input JSON file containing log sequences.",
+    )
+    parser.add_argument(
+        "--output_pathname",
+        default=str(Path(__file__).parent),
+        help="Path to the output directory where results.json will be saved.",
+    )
 
-    input_path = Path(JSON_FILE)
-    if not input_path.exists():
-        print(f"ERROR: '{input_path}' not found.", file=sys.stderr)
-        sys.exit(1)
+    args = parser.parse_args()
 
-    with open(input_path, encoding="utf-8") as f:
-        raw_json: list[dict] = json.load(f)
+    if args.dataset_pathname is None:
+        raise ValueError("Please provide a valid path to the input JSON file using --dataset_pathname.")
 
-    raw_json = raw_json[:]
-    dataset_length = len(raw_json)
+    dataset_filename = Path(args.dataset_pathname)
+    if not dataset_filename.exists():
+        raise FileNotFoundError(f"Input dataset file not found: {dataset_filename}")
 
-    print(f"Loaded {len(raw_json)} entries from {input_path}")
+    output_pathname = Path(args.output_pathname)
+
+    # ── Load dataset file ──
+    with open(dataset_filename, encoding="utf-8") as f:
+        dataset: list[dict] = json.load(f)
+
+    dataset_length = len(dataset)
+
+    print(f"Loaded {len(dataset)} entries from {dataset_filename}")
 
     # ── Build and run the graph ──
     app = build_graph()
 
     initial_state: AgentState = {
-        "raw_input": [log_dict.get("input") for log_dict in raw_json],
-        "raw_output": [log_dict.get("output") for log_dict in raw_json],
+        "raw_input": [entery.get("input") for entery in dataset],
+        "raw_output": [entery.get("output") for entery in dataset],
         "analysis": [],
         "reasoning": []
     }
 
     final_state = app.invoke(initial_state)
 
-    verdicts: list[str] = []
-    for i in range(dataset_length):
-        verdict: str = verdict_logs(final_state["raw_output"][i], final_state["reasoning"][i])
-        verdicts.append(verdict)
-
-    with open("results.json", "w", encoding="utf-8") as f:
+    # ── Write result to output file ──
+    with open(output_pathname, "w", encoding="utf-8") as f:
         # Exclude raw_entries from output to keep it tidy
         output = []
         for i in range(dataset_length):
@@ -168,8 +182,7 @@ def main() -> None:
                 "input": final_state["raw_input"][i],
                 "output": final_state["raw_output"][i],
                 "analysis": final_state["analysis"][i],
-                "reasoning": final_state["reasoning"][i],
-                "verdict": verdicts[i]
+                "reasoning": final_state["reasoning"][i]
             })
         json.dump(output, f, indent=2, ensure_ascii=False)
 

@@ -80,7 +80,7 @@ def judge_log(dataset_output: str, agentic_output: str) -> str:
     return model.invoke(prompt).content
 
 def main():
-    INPUT_PATH = "agentic_ai_results.json"
+    INPUT_PATH = "../prototype/v1/thunderbird/agentic_ai_results.json"
 
     with open(INPUT_PATH, encoding="utf-8") as file:
         data = json.load(file)
@@ -96,7 +96,7 @@ def main():
             "llm_judge": judge_result
         })
 
-    with open("llm_judge.json", "w", encoding="utf-8") as file:
+    with open("../prototype/v1/thunderbird/llm_judge.json", "w", encoding="utf-8") as file:
         json.dump(results, file, indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
