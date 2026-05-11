@@ -1,4 +1,6 @@
 from langchain_openai import ChatOpenAI
+from pathlib import Path
+import argparse
 import json
 import os
 
@@ -80,24 +82,57 @@ def judge_log(dataset_output: str, agentic_output: str) -> str:
     return model.invoke(prompt).content
 
 def main():
-    INPUT_PATH = "../prototype/v1/thunderbird/agentic_ai_results.json"
+    parser = argparse.ArgumentParser(
+        description="Agentic AI pipeline for log analysis and reasoning."
+    )
+    parser.add_argument(
+        "--reasoning_pathname",
+        default="",
+        help="Path to the reasoned JSON file containing log sequences.",
+    )
+    parser.add_argument(
+        "--output_pathname",
+        default=str(Path(__file__).parent),
+        help="Path to the output directory where results.json will be saved.",
+    )
 
-    with open(INPUT_PATH, encoding="utf-8") as file:
+    args = parser.parse_args()
+
+    if args.reasoning_pathname is None:
+        raise ValueError("Please provide a valid path to the input JSON file using --reasoning_pathname.")
+
+    reasoning_filename = Path(args.reasoning_pathname)
+    if not reasoning_filename.exists():
+        raise FileNotFoundError(f"Input dataset file not found: {reasoning_filename}")
+
+    output_pathname = Path(args.output_pathname)
+    if output_pathname.is_dir():
+        output_file = output_pathname / "llm_judge.json"
+    else:
+        output_file = output_pathname  # already a file path, use as-is
+
+    with open(reasoning_filename, encoding="utf-8") as file:
         data = json.load(file)
 
-    results = []
+    print(f"loaded {len(data)} datasets from {reasoning_filename}")
+
+    output = []
     for i, item in enumerate(data):
-        print(f"judging {i}. dataset")
+        print(f"Progress: judging entry {i + 1}/{len(data)}")
+
         judge_result = judge_log(item.get("output"), item.get("reasoning"))
-        print(f"judging finished for {i}. dataset")
-        results.append({
+
+        print(f"Progress: judging finished for {i + 1}/{len(data)}. dataset")
+        output.append({
             "dataset_output": item.get("output"),
             "llm_reasoning": item.get("reasoning"),
             "llm_judge": judge_result
         })
 
-    with open("../prototype/v1/thunderbird/llm_judge.json", "w", encoding="utf-8") as file:
-        json.dump(results, file, indent=2, ensure_ascii=False)
+        with open(output_file, "w", encoding="utf-8") as file:
+            json.dump(output, file, indent=2, ensure_ascii=False)
+
+        print(f"Progress: judging finished for {i + 1}/{len(data)} dataset and saved to {output_file}")
 
 if __name__ == "__main__":
     main()

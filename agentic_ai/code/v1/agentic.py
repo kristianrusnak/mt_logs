@@ -164,6 +164,8 @@ def main() -> None:
     output = []
 
     for i, entry in enumerate(dataset):
+        print(f"Progress: processing entry {i + 1}/{len(dataset)}")
+
         initial_state: AgentState = {
             "raw_input": entry.get("input"),
             "raw_output": entry.get("output"),
