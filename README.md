@@ -18,6 +18,10 @@ to real-world log data with minimal setup. Key design principles guiding the dev
 - **Accessibility** — the framework should be easy to run on custom data, with as little
   model fine-tuning required from the user as possible, ideally none at all.
 
+These principles represent our **aspirational targets** rather than guaranteed outcomes. The aim
+is to design the agentic system in a way that incorporates as many of these properties as
+feasibly possible, to the best of our ability within the scope of the thesis.
+
 The system will be evaluated and trained on publicly available log datasets and assessed using
 both classification metrics and explanation quality benchmarks.
 
@@ -28,7 +32,7 @@ both classification metrics and explanation quality benchmarks.
 | Week | Dates | Task |
 |------|-------|------|
 | Week 1 | Feb 16 – Feb 22 | Literature search — surveying existing research on log anomaly detection using LLMs and agentic AI approaches |
-| Week 2 | Feb 23 – Mar 1 | Selection of top 5 most relevant papers based on recency, methodology, and applicability |
+| Week 2 | Feb 23 – Mar 1 | Selection of top 5 most relevant papers based on recency, methodology, and applicability ([logGPT](https://ieeexplore.ieee.org/document/10466820), [LLM prompt patterns](https://dl.acm.org/doi/10.5555/3721041.3721046), [LogRESP-Agent](https://doi.org/10.3390/app15137237), [LLM-LADE](https://doi.org/10.1016/j.knosys.2025.114064) |
 | Week 3 | Mar 2 – Mar 8 | In-depth reading and analysis of selected papers |
 | Week 4 | Mar 9 – Mar 15 | In-depth reading and analysis of selected papers (continued) |
 | Week 5 | Mar 16 – Mar 22 | Design decisions for the first prototype — selecting frameworks, models, and datasets based on findings from the papers |
@@ -39,6 +43,7 @@ both classification metrics and explanation quality benchmarks.
 | Week 10 | Apr 20 – Apr 26 | Analysis of benchmark results and investigation of data scarcity problem — exploring data augmentation strategies |
 | Week 11 | Apr 27 – May 3 | Design and implementation of LLM-based few-shot synthetic data augmentation script |
 | Week 12 | May 4 – May 11 | Testing and validation of the data augmentation pipeline |
+| Week 13 | May 12 – May 18 | Preparation of final seminar presentation, drafting initial structure of the thesis paper |
 
 ### 🗓️ Planned Tasks
 
