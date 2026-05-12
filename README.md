@@ -32,7 +32,7 @@ both classification metrics and explanation quality benchmarks.
 | Week | Dates | Task |
 |------|-------|------|
 | Week 1 | Feb 16 – Feb 22 | Literature search — surveying existing research on log anomaly detection using LLMs and agentic AI approaches |
-| Week 2 | Feb 23 – Mar 1 | Selection of top 5 most relevant papers based on recency, methodology, and applicability ([logGPT](https://ieeexplore.ieee.org/document/10466820), [LLM prompt patterns](https://dl.acm.org/doi/10.5555/3721041.3721046), [LogRESP-Agent](https://doi.org/10.3390/app15137237), [LLM-LADE](https://doi.org/10.1016/j.knosys.2025.114064) |
+| Week 2 | Feb 23 – Mar 1 | Selection of top 5 most relevant papers based on recency, methodology, and applicability |
 | Week 3 | Mar 2 – Mar 8 | In-depth reading and analysis of selected papers |
 | Week 4 | Mar 9 – Mar 15 | In-depth reading and analysis of selected papers (continued) |
 | Week 5 | Mar 16 – Mar 22 | Design decisions for the first prototype — selecting frameworks, models, and datasets based on findings from the papers |
@@ -55,3 +55,37 @@ both classification metrics and explanation quality benchmarks.
 | 4 | Design and implement dedicated tools for the agentic AI (e.g. log parsers, retrieval tools, classification backends) |
 | 5 | Set up and run one of the LLM-based log anomaly detection frameworks identified in the literature review (e.g. LogLLM) |
 | 6 | Integrate the selected detection framework as a tool within the agentic AI pipeline and evaluate the combined system |
+
+## Links & Resources
+
+### 📄 Research Papers
+| Paper | Description |
+|-------|-------------|
+| [LogGPT](https://ieeexplore.ieee.org/document/10466820) | Log anomaly detection using GPT-based large language models |
+| [LLM Prompt Patterns](https://dl.acm.org/doi/10.5555/3721041.3721046) | A catalog of prompt patterns for enhancing prompt engineering with ChatGPT |
+| [LogRESP-Agent](https://doi.org/10.3390/app15137237) | Agentic approach to log-based anomaly detection and response |
+| [LLM-LADE](https://doi.org/10.1016/j.knosys.2025.114064) | LLM-based log anomaly detection and explanation |
+| [LogLLM](https://arxiv.org/abs/2405.14328) | Log anomaly detection using Llama and BERT |
+
+### 🗂️ Datasets
+| Resource | Description |
+|----------|-------------|
+| [LogHub](https://github.com/logpai/loghub) | Collection of publicly available log datasets (HDFS, BGL, Thunderbird, etc.) |
+| [LLM-LADE Seed Data](https://github.com/sleep-zzw-bot/LLM-LADE/tree/master/seed_data) | Annotated log sequences from LogHub labeled by LLM-LADE |
+
+### 💻 Implementation
+| Resource | Description |
+|----------|-------------|
+| [Agentic AI Prototype](https://github.com/kristianrusnak/mt_logs/blob/main/agentic_ai/code/v1/agentic.py) | Source code of the first agentic AI pipeline prototype |
+| [Benchmarking Code](https://github.com/kristianrusnak/mt_logs/tree/main/agentic_ai/benchmarks) | Scripts used to evaluate the prototype against log datasets |
+| [Data Augmentation](https://github.com/kristianrusnak/mt_logs/tree/main/datasets/augmentation) | LLM-based few-shot synthetic data augmentation pipeline |
+
+### 📊 Results
+| Resource | Description |
+|----------|-------------|
+| [Prototype v1 Evaluation Results](https://github.com/kristianrusnak/mt_logs/tree/main/agentic_ai/prototype/v1) | Benchmark results from the first prototype evaluation — each dataset has its own subfolder |
+
+### 📝 Thesis
+| Resource | Description |
+|----------|-------------|
+| [Master Thesis Paper](https://github.com/kristianrusnak/mt_logs/tree/main/master_thesis) | Work-in-progress master thesis document |
