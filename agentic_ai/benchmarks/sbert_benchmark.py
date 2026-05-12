@@ -47,8 +47,8 @@ import sys
 #    - Other good options: "all-mpnet-base-v2" (slower, more accurate)
 
 
-MODEL_NAME = "all-MiniLM-L6-v2"
-# MODEL_NAME = "all-mpnet-base-v2"
+# MODEL_NAME = "all-MiniLM-L6-v2"
+MODEL_NAME = "all-mpnet-base-v2"
 
 def load_model() -> SentenceTransformer:
     print(f"  Loading model '{MODEL_NAME}' (downloads once on first run)...")
