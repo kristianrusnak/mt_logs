@@ -25,6 +25,20 @@ feasibly possible, to the best of our ability within the scope of the thesis.
 The system will be evaluated and trained on publicly available log datasets and assessed using
 both classification metrics and explanation quality benchmarks.
 
+## Goal
+
+Deliver a **runnable, user-friendly agentic AI framework** for log anomaly detection that is
+**generalizable** to unseen environments, **robust** to evolving log formats,
+and **accessible** with minimal to no fine-tuning required — to the best of our
+ability within the scope of this thesis.
+
+## Documents
+
+| Document | Link |
+|---|---|
+| 📄 Thesis (in progress) | [main.pdf](https://github.com/kristianrusnak/mt_logs/blob/main/master_thesis/main.pdf) |
+| 📊 Presentation | [presentation.pdf](https://github.com/kristianrusnak/mt_logs/blob/main/presentation.pdf) |
+
 ## Task Calendar
 
 ### ✅ Completed Tasks
@@ -84,8 +98,3 @@ both classification metrics and explanation quality benchmarks.
 | Resource | Description |
 |----------|-------------|
 | [Prototype v1 Evaluation Results](https://github.com/kristianrusnak/mt_logs/tree/main/agentic_ai/prototype/v1) | Benchmark results from the first prototype evaluation — each dataset has its own subfolder |
-
-### 📝 Thesis
-| Resource | Description |
-|----------|-------------|
-| [Master Thesis Paper](https://github.com/kristianrusnak/mt_logs/tree/main/master_thesis) | Work-in-progress master thesis document |
